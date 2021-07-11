@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
+from .models import NewUser
 
 
 def register(request):
@@ -21,9 +22,9 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-def index(request):
+#def index(request):
 
-	return HttpResponse("hello world!")
+#	return HttpResponse("hello world!")
 # Create your views here.
 
 def login_user(request):
@@ -36,4 +37,28 @@ def login_user(request):
         ...
     else:
         # Return an 'invalid login' error message.
-        ...
+
+      ...
+@login_required
+def index(request):
+
+    current_user = request.user
+    print(current_user.who_is)
+
+    if (current_user.who_is == "Professor"):
+        return redirect('/professor_dashboard/')
+    else:
+        return redirect('/student_dashboard/')
+
+    """
+
+    if request.user.is_superuser:
+        return redirect("/admin/")
+
+    elif NewUser.objects.filter(id = current_user.id).exists():
+        return redirect('/register/')
+
+    else:
+        
+        return redirect('/login/')
+    """
