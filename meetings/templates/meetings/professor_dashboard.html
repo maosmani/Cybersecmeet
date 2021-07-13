@@ -1,7 +1,20 @@
-{% extends "users/base.html" %}
+{% extends "meetings/base_dashboard.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-       <h2>This is Prof dashboard!</h2>
+
+       {% if user.is_authenticated %}
+    <p>Welcome, {{ user.first_name }}. Thanks for logging in.</p>
+
+    {% endif %}
+    
+      {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+ 
     </div>
 {% endblock content %}

@@ -1,7 +1,21 @@
-{% extends "users/base.html" %}
+{% extends "meetings/student_base_dashboard.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-       <h2>This is Student dashboard!</h2>
+   <h3>List of all Meetings:</h3>
+
+    <div class="card">
+   <ul class="list-group list-group-flush">
+    
+   {% for meeting  in meetings %}
+    <li class="list-group-item">
+        <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
+        <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
+        <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
+       <h6>Date of the meeting: </h6> <p>{{ meeting.date|date }}</p>
+        <h6>Time of the meeting: </h6><p>{{ meeting.time|time }}</p>
+
+        </li>
+    {% endfor %}
     </div>
 {% endblock content %}

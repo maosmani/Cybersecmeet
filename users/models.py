@@ -49,6 +49,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     country = CountryField()
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
+    zoom_url = models.URLField(max_length = 200 , default = "") 
+
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

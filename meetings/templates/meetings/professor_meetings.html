@@ -1,0 +1,18 @@
+{% extends "meetings/base_dashboard.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+    <div class="card">
+   <ul class="list-group list-group-flush">
+    
+   {% for meeting  in meetings %}
+    <li class="list-group-item">
+        <p>{{ meeting.zoom_url }}</p>
+        <p>{{ meeting.about_meeting }}</p>
+        <p>{{ meeting.date|date }}</p>
+        <p>{{ meeting.time|time }}</p>
+
+        </li>
+    {% endfor %}
+    </div>
+{% endblock content %}
