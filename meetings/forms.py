@@ -16,7 +16,7 @@ class MeetingsForm(ModelForm):
 
     class Meta:
         model = Meetings
-        fields = ['title','zoom_url','about_meeting','date','time']
+        fields = ['topic','title','zoom_url','about_meeting','date','time']
         widgets = {
             'date': DateInput(),
             'time':TimeInput(),

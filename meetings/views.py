@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import MeetingsForm
 from users.models import NewUser
@@ -65,3 +65,51 @@ def student_dashboard(request):
 
 	
 	return render(request,'meetings/student_dashboard.html',context)
+
+def delete_meeting(request, id): 
+    # dictionary for initial data with  
+    # field names as keys 
+    context ={} 
+  
+    # fetch the object related to passed id 
+    obj = get_object_or_404(Meetings, id = id) 
+  
+  
+    if request.method =="POST": 
+        # delete object 
+        obj.delete() 
+        # after deleting redirect to  
+        # home page 
+        return redirect('professor-dashboard')
+  
+    return render(request, "meetings/delete_meeting.html",context)
+
+def update_meeting(request,id):
+
+    context ={} 
+  
+    # fetch the object related to passed id 
+    obj = get_object_or_404(Meetings, id = id) 
+  
+    # pass the object as instance in form 
+    form = MeetingsForm(request.POST or None, instance = obj) 
+  
+    # save the data from the form and 
+    # redirect to detail_view 
+    if form.is_valid(): 
+        form.save() 
+        return redirect('professor-dashboard')
+  
+    # add form dictionary to context 
+    context["form"] = form 
+  
+    return render(request, "meetings/update_meeting.html", context) 
+
+def show_all_meetings(request):
+	context = {
+	        'meetings': Meetings.objects.all()
+	        
+	    }
+
+
+	return render(request,'meetings/show_all_meetings.html',context)

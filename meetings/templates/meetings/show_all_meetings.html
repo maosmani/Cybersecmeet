@@ -1,7 +1,9 @@
-{% extends "meetings/base_dashboard.html" %}
+{% extends "users/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+     <div class="content-section">
+
+      <h2>All Meetings</h2>
     <div class="card">
    <ul class="list-group list-group-flush">
     
@@ -12,14 +14,10 @@
         <p>{{ meeting.about_meeting }}</p>
         <p>{{ meeting.date|date }}</p>
         <p>{{ meeting.time|time }}</p>
+        <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
+
 
         </li>
-
-        <a href="http://127.0.0.1:8000/delete/{{meeting.id }}" class="btn btn-primary  active" role="button" aria-pressed="true">Delete Meeting</a>
-
-        <a href="http://127.0.0.1:8000/update/{{meeting.id }}" class="btn btn-primary  active" role="button" aria-pressed="true">Update Meeting</a>
-
-
 
     {% endfor %}
     </div>
