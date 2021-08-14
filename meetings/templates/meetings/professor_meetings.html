@@ -13,14 +13,14 @@
         <p>{{ meeting.date|date }}</p>
         <p>{{ meeting.time|time }}</p>
 
-        </li>
+      
 
-        <a href="http://127.0.0.1:8000/delete/{{meeting.id }}" class="btn btn-primary  active" role="button" aria-pressed="true">Delete Meeting</a>
+        <div>
+        <a class="btn btn-primary" href="http://127.0.0.1:8000/delete/{{meeting.id }}" role="button">Delete Meeting</a>
+        <a class="btn btn-primary" href="http://127.0.0.1:8000/update/{{meeting.id }}" role="button">Update Meeting</a>
+       </div>
 
-        <a href="http://127.0.0.1:8000/update/{{meeting.id }}" class="btn btn-primary  active" role="button" aria-pressed="true">Update Meeting</a>
-
-
-
+      </li>
     {% endfor %}
     </div>
 {% endblock content %}

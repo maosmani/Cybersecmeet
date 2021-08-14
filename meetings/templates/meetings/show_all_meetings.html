@@ -3,22 +3,22 @@
 {% block content %}
      <div class="content-section">
 
-      <h2>All Meetings</h2>
-    <div class="card">
-   <ul class="list-group list-group-flush">
-    
-   {% for meeting  in meetings %}
-    <li class="list-group-item">
-        <p>meeting id : {{ meeting.id }}</p>
-        <p>{{ meeting.zoom_url }}</p>
-        <p>{{ meeting.about_meeting }}</p>
-        <p>{{ meeting.date|date }}</p>
-        <p>{{ meeting.time|time }}</p>
-        <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
+      <h2>All Meetings</h2></br>
 
-
-        </li>
-
-    {% endfor %}
+   <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            
+        </div>
+    </div>
     </div>
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponse
-from .forms import MeetingsForm
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import MeetingsForm, MeetingsFieldsForm
 from users.models import NewUser
 from .models import Meetings
 from django.contrib import messages
@@ -106,10 +106,25 @@ def update_meeting(request,id):
     return render(request, "meetings/update_meeting.html", context) 
 
 def show_all_meetings(request):
+
+	if request.method == 'POST':
+		form = MeetingsFieldsForm(request.POST)
+		if form.is_valid():
+			field  = form.cleaned_data['field']
+			request.session['field'] = field
+			return HttpResponseRedirect('/meetings_by_field/')
+	else:
+		form = MeetingsFieldsForm()
+
+	return render(request,'meetings/show_all_meetings.html',{'form':form})
+
+def meetings_by_field(request):
+	field_value  = request.session['field']
+
 	context = {
-	        'meetings': Meetings.objects.all()
-	        
-	    }
 
+	  'meetings': Meetings.objects.all().filter(field = field_value),
+	  'field': field_value,
+	}
+	return render(request,'meetings/meetings_by_field.html',context)
 
-	return render(request,'meetings/show_all_meetings.html',context)

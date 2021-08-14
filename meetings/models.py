@@ -2,6 +2,12 @@ from django.db import models
 from users.models import NewUser
 
 class Meetings(models.Model):
+    MY_Field = (
+        ('electronic', 'electronic'),
+        ('computer', 'computer'),
+        ('economic', 'economic'),
+        )
+    field = models.CharField(max_length=100, choices=MY_Field,default = 'choose your field')
     topic = models.CharField(max_length=250)
     title = models.CharField(max_length=250)
     about_meeting = models.TextField()

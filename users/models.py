@@ -40,12 +40,20 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         ('Student', 'Student'),
     
     )
+    MY_Field = (
+        ('electronic', 'electronic'),
+        ('computer', 'computer'),
+        ('economic', 'economic'),
+    
+    )
 
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
+    last_name = models.CharField(max_length=150, blank=True)
     start_date = models.DateTimeField(default=timezone.now)
-    who_is = models.CharField(max_length=10, choices=MY_CHOICES)
+    who_is = models.CharField(max_length=10, choices=MY_CHOICES,default = 'Student')
+    field = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
     country = CountryField()
     about = models.TextField(_(
         'about'), max_length=500, blank=True)

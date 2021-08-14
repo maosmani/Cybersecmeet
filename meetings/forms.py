@@ -16,8 +16,19 @@ class MeetingsForm(ModelForm):
 
     class Meta:
         model = Meetings
-        fields = ['topic','title','zoom_url','about_meeting','date','time']
+        fields = ['field','topic','title','zoom_url','about_meeting','date','time']
         widgets = {
             'date': DateInput(),
             'time':TimeInput(),
             }
+
+
+
+
+class MeetingsFieldsForm(forms.Form):
+    OPTIONS = (
+        ('electronic', 'electronic'),
+        ('computer', 'computer'),
+        ('economic', 'economic'),
+        )
+    field = forms.ChoiceField(choices = OPTIONS)
