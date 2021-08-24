@@ -10,13 +10,12 @@
     
    {% for meeting  in meetings %}
     <li class="list-group-item">
-        <p>meeting Field: {{ meeting.field }}</p>
         <p>meeting topic is: {{ meeting.topic }}</p>
         <p>meeting Title is: {{ meeting.title }}</p>
-        <p>{{ meeting.zoom_url }}</p>
-        <p>{{ meeting.about_meeting }}</p>
-        <p>{{ meeting.date|date }}</p>
-        <p>{{ meeting.time|time }}</p>
+        <p>meeting zoom link: {{ meeting.zoom_url }}</p>
+        <p>About the meeting:</br> {{ meeting.about_meeting }}</p>
+        <p>Meeting Date: {{ meeting.date|date }}</p>
+        <p>Meeting Time: {{ meeting.time|time }}</p>
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
 
 

@@ -3,11 +3,12 @@ from users.models import NewUser
 from django.forms import ModelForm
 from .models import Meetings
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 class TimeInput(forms.TimeInput):
     input_type = 'time'
-    input_formats = ' %h:%m %p'
+    input_formats = '%H:%M:%S %Z'
 
     #'time': forms.TimeInput(format='%H:%M'),
  
@@ -16,10 +17,12 @@ class MeetingsForm(ModelForm):
 
     class Meta:
         model = Meetings
-        fields = ['field','topic','title','zoom_url','about_meeting','date','time']
+        fields = ['field','topic','title','zoom_url','about_meeting','date','time','date_time']
         widgets = {
             'date': DateInput(),
             'time':TimeInput(),
+
+
             }
 
 
