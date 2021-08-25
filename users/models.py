@@ -54,7 +54,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     who_is = models.CharField(max_length=10, choices=MY_CHOICES,default = 'Student')
     field = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
-    country = CountryField()
+    country = CountryField(multiple=True)
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
     zoom_url = models.URLField(max_length = 200 , default = "") 
