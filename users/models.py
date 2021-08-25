@@ -52,7 +52,7 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     start_date = models.DateTimeField(default=timezone.now)
-    who_is = models.CharField(max_length=100, choices=MY_CHOICES,default = 'Student')
+    who_is = models.CharField(choices=MY_CHOICES,default = 'Student')
     field = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
     country = CountryField(multiple=True)
     about = models.TextField(_(
