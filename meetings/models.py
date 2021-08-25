@@ -16,5 +16,5 @@ class Meetings(models.Model):
     date = models.DateField(null=True)
    
 
-    user = models.ForeignKey(NewUser,on_delete=models.CASCADE)
+    user = models.ForeignKey(NewUser,on_delete=models.CASCADE, default = 1)
 
