@@ -35,7 +35,7 @@ def professor_dashboard(request):
 
 	return render(request,'meetings/professor_meetings.html',context)
 
-
+"""
 @login_required
 def professor_add_meeting(request):
 	    if request.method == 'POST':
@@ -52,8 +52,22 @@ def professor_add_meeting(request):
 	    else:
 	        form = MeetingsForm()
 	    return render(request,'meetings/professor_add_meeting.html',{'form': form})
-
-
+"""
+@login_required
+def professor_add_meeting(request):
+	    if request.method == 'POST':
+	        form = MeetingsForm(request.POST)
+	        if form.is_valid():
+	        	current_user = request.user
+	        	instance =  form.save(commit=False)
+	        	instance.user = request.user
+	        	instance.save()
+	        	messages.success(request, f'You have Added a new Meeting!')
+	 
+	        	return redirect('professor-dashboard')
+	    else:
+	        form = MeetingsForm()
+	    return render(request,'meetings/professor_add_meeting.html',{'form': form})
 #Student Part of code..
 
 @login_required
