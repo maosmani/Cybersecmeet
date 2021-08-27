@@ -15,6 +15,9 @@ class Meetings(models.Model):
     time =  models.TimeField(null=True)
     date = models.DateField(null=True)
     user = models.ForeignKey(NewUser,on_delete=models.CASCADE, default = 1)
+
+    def __str__(self):
+        return self.field
   
 
 

@@ -158,12 +158,17 @@ def meetings_by_field(request):
 def save_metings_to_student_dashboard(request,id):
 	current_user = request.user
 
-	StudentMeetings.objects.create(
-            meetings = Meetings.objects.get(id= id ),
-            new_user = NewUser.objects.get(id= current_user.id )
-    )
+	if StudentMeetings.objects.filter(meetings = Meetings.objects.get(id= id ),new_user = NewUser.objects.get(id= current_user.id )).exists():
+		return redirect('student-dashboard')
+ 
+    else:
 
-	messages.success(request, f'Your meeting has been added!')
+		StudentMeetings.objects.create(
+	            meetings = Meetings.objects.get(id= id ),
+	            new_user = NewUser.objects.get(id= current_user.id )
+	    )
+
+	    messages.success(request, f'Your meeting has been added!')
 
 	return HttpResponseRedirect('/student_dashboard/')
 
