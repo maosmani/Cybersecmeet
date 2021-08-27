@@ -14,7 +14,10 @@ class Meetings(models.Model):
     zoom_url = models.URLField(max_length=200)
     time =  models.TimeField(null=True)
     date = models.DateField(null=True)
-   
-
     user = models.ForeignKey(NewUser,on_delete=models.CASCADE, default = 1)
+  
 
+
+class StudentMeetings(models.Model):
+    meetings = models.ForeignKey(Meetings,on_delete=models.CASCADE, default = 1)
+    new_user = models.ForeignKey(NewUser, on_delete=models.CASCADE, default = 1)

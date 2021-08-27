@@ -10,13 +10,20 @@
     
    {% for meeting  in meetings %}
     <li class="list-group-item">
+        <p>meeting PK is: {{ meeting.id }}</p>
         <p>meeting topic is: {{ meeting.topic }}</p>
         <p>meeting Title is: {{ meeting.title }}</p>
         <p>meeting zoom link: {{ meeting.zoom_url }}</p>
         <p>About the meeting:</br> {{ meeting.about_meeting }}</p>
         <p>Meeting Date: {{ meeting.date|date }}</p>
         <p>Meeting Time: {{ meeting.time|time }}</p>
+
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
+
+        <a href="{% url 'save-meeting-to-student-dashoard' meeting.id %}"class="btn btn-primary  active" role="button" aria-pressed="true">Add Meeting to your Dashboard</a>
+
+
+
 
 
         </li>

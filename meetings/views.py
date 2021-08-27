@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import MeetingsForm, MeetingsFieldsForm
 from users.models import NewUser
-from .models import Meetings
+from .models import Meetings, StudentMeetings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -72,8 +72,21 @@ def professor_add_meeting(request):
 
 @login_required
 def student_dashboard(request):
+	current_user = request.user
+
+	data = StudentMeetings.objects.all().filter(new_user = current_user.id)
+
+	list_of_meetings_index = []
+
+	for meeting in data:
+
+
+		list_of_meetings_index.append(meeting.meetings.id)
 	context = {
-	        'meetings': Meetings.objects.all()
+	        #'meetings': Meetings.objects.all()
+	        #get all record where the curent user
+	        #'StudentMeetings': StudentMeetings.objects.all().filter(new_user = current_user.id)
+	        'meetings' : Meetings.objects.filter( id__in = list_of_meetings_index)
 	        
 	    }
 
@@ -142,3 +155,14 @@ def meetings_by_field(request):
 	}
 	return render(request,'meetings/meetings_by_field.html',context)
 
+def save_metings_to_student_dashboard(request,id):
+	current_user = request.user
+
+	StudentMeetings.objects.create(
+            meetings = Meetings.objects.get(id= id ),
+            new_user = NewUser.objects.get(id= current_user.id )
+    )
+
+	messages.success(request, f'Your meeting has been added!')
+
+	return HttpResponseRedirect('/student_dashboard/')
