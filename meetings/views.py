@@ -166,3 +166,12 @@ def save_metings_to_student_dashboard(request,id):
 	messages.success(request, f'Your meeting has been added!')
 
 	return HttpResponseRedirect('/student_dashboard/')
+
+def delete_student_meeting(request, id): 
+	current_user = request.user
+	context ={} 
+	obj = get_object_or_404(StudentMeetings, meetings = id , new_user = current_user.id ) 
+	if request.method =="POST":
+		obj.delete() 
+		return redirect('student-dashboard')
+	return render(request, "meetings/delete_student_meeting.html",context)
