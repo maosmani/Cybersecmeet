@@ -13,7 +13,8 @@ ul {
 }
 
 .bg-steel {
-  background-color: #5f788a;
+    background-color: #5f788a;
+
 }
 
 .site-header .navbar-nav .nav-link {
@@ -34,7 +35,7 @@ ul {
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
-  
+
 }
 
 .article-title {
