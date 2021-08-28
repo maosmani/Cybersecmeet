@@ -160,15 +160,15 @@ def save_metings_to_student_dashboard(request,id):
 
 	if StudentMeetings.objects.filter(meetings = Meetings.objects.get(id= id ),new_user = NewUser.objects.get(id= current_user.id )).exists():
 		return redirect('student-dashboard')
- 
-    else:
+		
+
+
+	else:
 
 		StudentMeetings.objects.create(
 	            meetings = Meetings.objects.get(id= id ),
-	            new_user = NewUser.objects.get(id= current_user.id )
-	    )
+	            new_user = NewUser.objects.get(id= current_user.id ))
 
-	    messages.success(request, f'Your meeting has been added!')
 
 	return HttpResponseRedirect('/student_dashboard/')
 

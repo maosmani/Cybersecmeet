@@ -43,8 +43,7 @@ def login_user(request):
 def index(request):
 
     current_user = request.user
-    print(current_user.who_is)
-
+    
     if (current_user.who_is == "Professor"):
         return redirect('/professor_dashboard/')
     else:

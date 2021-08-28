@@ -4,24 +4,36 @@
      <div class="content-section">
 
       <h2>Meetings in {{field}}</h2></br>
+    
 
     <div class="card">
    <ul class="list-group list-group-flush">
     
    {% for meeting  in meetings %}
+
     <li class="list-group-item">
-        <p>meeting PK is: {{ meeting.id }}</p>
-        <p>meeting topic is: {{ meeting.topic }}</p>
-        <p>meeting Title is: {{ meeting.title }}</p>
-        <p>meeting zoom link: {{ meeting.zoom_url }}</p>
-        <p>About the meeting:</br> {{ meeting.about_meeting }}</p>
-        <p>Meeting Date: {{ meeting.date|date }}</p>
-        <p>Meeting Time: {{ meeting.time|time }}</p>
+       <h6>Field of the meeting is: </h6> <p> {{ meeting.field }}</p>
+        <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
+
+        <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
+
+        <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
+
+        <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
+
+       <h6>Date of the meeting: </h6> <p>{{ meeting.date|date }}</p>
+
+        <h6>Time of the meeting: </h6><p>{{ meeting.time|time }}</p>
+
 
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
 
         {% if user.is_authenticated %}
+        {% ifnotequal request.user.who_is "Professor" %}
+
         <a href="{% url 'save-meeting-to-student-dashoard' meeting.id %}"class="btn btn-primary  active" role="button" aria-pressed="true">Add Meeting to your Dashboard</a>
+
+        {% endifnotequal %}
         {% endif %}
 
 
@@ -33,6 +45,8 @@
 
 
 {% endfor %}
+</ul>
+</div>
 
 
     </div>
