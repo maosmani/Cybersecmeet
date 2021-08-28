@@ -7,13 +7,19 @@
     
    {% for meeting  in meetings %}
     <li class="list-group-item">
-        <p>meeting id : {{ meeting.id }}</p>
-        <p>{{ meeting.zoom_url }}</p>
-        <p>{{ meeting.about_meeting }}</p>
-        <p>{{ meeting.date|date }}</p>
-        <p>{{ meeting.time|time }}</p>
+        
+    <h6>Field of the meeting is: </h6> <p> {{ meeting.field }}</p>
+        <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
 
-      
+        <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
+
+        <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
+
+        <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
+
+       <h6>Date of the meeting: </h6> <p>{{ meeting.date|date }}</p>
+
+        <h6>Time of the meeting: </h6><p>{{ meeting.time|time }}</p>
 
         <div>
         <a class="btn btn-primary" href="https://dzmeetings.herokuapp.com/delete/{{meeting.id }}" role="button">Delete Meeting</a>
