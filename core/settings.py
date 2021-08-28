@@ -136,5 +136,11 @@ LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "osmani.blogger@gmail.com"
+EMAIL_HOST_PASSWORD = "googleosmani19911991"
 
 django_heroku.settings(locals())
