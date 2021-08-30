@@ -20,6 +20,7 @@ urlpatterns = [
     path('update/<int:id>/',views.update_meeting, name="update"),
     path('meetings/',views.show_all_meetings, name="show-all-meetings"),
     path('meetings_by_field/',views.meetings_by_field, name="meetings-by-field"),
+    path('meeting_details/<int:id>/',views.meeting_details,name="meeting-details"),
     path('meeting_save_to_user/<int:id>>/',views.save_metings_to_user_dashboard,name="save-meeting-to-user-dashoard"),
     path('delete_user_meeting/<int:id>/', views.delete_user_meeting, name="delete-user-meeting" ),
 

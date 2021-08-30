@@ -4,7 +4,8 @@
     <div class="content-section">
     <div class="card">
    <ul class="list-group list-group-flush">
-    
+        {% if meetings %}
+
    {% for meeting  in meetings %}
     <li class="list-group-item">
         
@@ -28,5 +29,9 @@
 
       </li>
     {% endfor %}
+
+       {% else %}
+        <p>Sorry, There is no meeting in this area yet.</p>
+        {% endif %}
     </div>
 {% endblock content %}

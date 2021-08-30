@@ -3,24 +3,24 @@
 {% block content %}
      <div class="content-section">
 
-      <h2>Meetings in {{area}}</h2></br>
+      <h2>Meeting  Detalis</h2></br>
     
 
     <div class="card">
    <ul class="list-group list-group-flush">
 
-    {% if meetings %}
-   {% for meeting  in meetings %}
-
     <li class="list-group-item">
-        <h6>meeting id is: </h6> <p> {{ meeting.id }}</p>
+     
+
+
+
        <h6>Area of the meeting is: </h6> <p> {{ meeting.area }}</p>
         <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
 
-         <a href="http://127.0.0.1:8000/meeting_details/{{ meeting.id }}">Meeting Details</a>
-       {% comment %}
+       
+
         <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
 
         <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
@@ -40,26 +40,32 @@
         {% endifnotequal %}
         {% endif %}
 
-        {% endcomment%}
+     
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+      
         </li>
 
 
-{% endfor %}
 
 
 </ul>
- {% else %}
-        <p>Sorry, There is no meeting in this area yet.</p>
-        {% endif %}
-
-
-
+ 
 </div>
 
     </div>

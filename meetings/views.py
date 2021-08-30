@@ -168,6 +168,14 @@ def meetings_by_field(request):
 	}
 	return render(request,'meetings/meetings_by_field.html',context)
 
+def meeting_details(request,id):
+	context = {
+
+	  'meeting': Meetings.objects.get(id=id),
+
+	}
+	return render(request,'meetings/meeting_details.html',context)
+
 def save_metings_to_user_dashboard(request,id):
 	current_user = request.user
 
