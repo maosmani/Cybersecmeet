@@ -30,6 +30,8 @@
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
 
+        {% comment %}
+
         <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
 
         <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
@@ -37,9 +39,21 @@
        <h6>Date of the meeting: </h6> <p>{{ meeting.date|date }}</p>
 
         <h6>Time of the meeting: </h6><p>{{ meeting.time|time }}</p>
+         
+         {% endcomment%}
 
+         
+             <a href="http://127.0.0.1:8000/meeting_details/{{ meeting.id }}" class="btn btn-primary  active" role="button" aria-pressed="true">Meeting Details</a>
+
+        {% comment%}
+
+        <a href="http://127.0.0.1:8000/meeting_details/{{ meeting.id }}">Meeting Details</a>
+
+     </br>
 
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
+
+        {% endcomment %}
 
           <a class="btn btn-primary" href="https://dzmeetings.herokuapp.com/delete_student_meeting/{{meeting.id }}" role="button">Delete Meeting</a>
 

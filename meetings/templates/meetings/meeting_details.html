@@ -10,7 +10,18 @@
    <ul class="list-group list-group-flush">
 
     <li class="list-group-item">
+
+     <form>
+    <div>
+      <input type="text" class="form-control"  value="{{ meeting.zoom_url }}"id="yourtext">
+    </div>
+</form>
+</br>
+</br>
      
+     <button type="button" class="btn btn-primary btn-lg btn-block" onclick="CopyText()" >Copy Zoom Link</button>
+    </br>
+</br>
 
 
 
@@ -69,4 +80,22 @@
 </div>
 
     </div>
+
+{% block scripts %}
+<script>
+  function CopyText() {
+  var text = document.getElementById('yourtext');
+  text.select();
+  document.execCommand('copy');
+  window.confirm("You link has been copied!");
+
+}
+</script>
+{% endblock scripts %}
+
+
+
+
 {% endblock content %}
+
+

@@ -29,7 +29,6 @@
             <a class="nav-item nav-link" href="{% url 'home-page' %}">Home</a>
              <a class="nav-item nav-link" href="{% url 'about-page' %}">About</a>
              
-             <a class="nav-item nav-link" href="{% url 'request-meeting' %}">Request Meeting</a>
              <a class="nav-item nav-link" href="{% url 'show-all-meetings' %}">Meetings</a>
 
             </div>
@@ -40,6 +39,18 @@
               <a class="nav-item nav-link" href="{% url 'index' %}">DashBoard</a>
 
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                 <li class="nav-item dropdown">
+
+                  
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Profile
+        </a>
+        <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="{% url 'reset_password' %}">Password Reset</a>
+
+
               {% else %}
                 <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
