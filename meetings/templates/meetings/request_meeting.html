@@ -1,9 +1,8 @@
 {% extends "meetings/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-     <div class="content-section">
-
-      <h2>Search for meetings by Area</h2></br>
+    <div class="content-section">
+       <h2>Request a Meeting page!</h2>
 
    <div class="content-section">
         <form method="POST">
@@ -13,9 +12,8 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Search</button>
+                <button class="btn btn-outline-info" type="submit">Submit</button>
             </div>
         </form>
-    </div>
     </div>
 {% endblock content %}

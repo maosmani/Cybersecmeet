@@ -45,10 +45,10 @@ def index(request):
 
     current_user = request.user
     
-    if (current_user.who_is == "Professor"):
-        return redirect('/professor_dashboard/')
+    if (current_user.who_is == "Admin"):
+        return redirect('/admin_dashboard/')
     else:
-        return redirect('/student_dashboard/')
+        return redirect('/user_dashboard/')
 
     """
 

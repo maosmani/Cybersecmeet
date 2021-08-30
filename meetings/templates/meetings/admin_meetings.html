@@ -1,4 +1,4 @@
-{% extends "meetings/professor_base_dashboard.html" %}
+{% extends "meetings/admin_base_dashboard.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
@@ -8,7 +8,7 @@
    {% for meeting  in meetings %}
     <li class="list-group-item">
         
-    <h6>Field of the meeting is: </h6> <p> {{ meeting.field }}</p>
+    <h6>Field of the meeting is: </h6> <p> {{ meeting.area }}</p>
         <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>

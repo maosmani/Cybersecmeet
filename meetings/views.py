@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import MeetingsForm, MeetingsFieldsForm
+from .forms import MeetingsForm, MeetingsFieldsForm, RequestMeetingForm
 from users.models import NewUser
 from .models import Meetings, StudentMeetings
 from django.contrib import messages
@@ -16,6 +16,19 @@ def about(request):
 
 	return render(request,'meetings/about.html')
 
+def request_meeting(request):
+
+	if request.method == 'POST':
+		form = RequestMeetingForm(request.POST)
+		if form.is_valid():
+			#field  = form.cleaned_data['area']
+			#request.session['area'] = area
+			return HttpResponseRedirect('/about/')
+	else:
+		form = RequestMeetingForm()
+
+
+	return render(request, 'meetings/request_meeting.html',{'form':form})
 
 #Prof part of the code
 """
@@ -27,13 +40,13 @@ def professor_dashboard(request):
 
 """
 @login_required
-def professor_dashboard(request):
+def admin_dashboard(request):
 	context = {
 	        'meetings': Meetings.objects.filter(user=request.user)
 	        
 	    }
 
-	return render(request,'meetings/professor_meetings.html',context)
+	return render(request,'meetings/admin_meetings.html',context)
 
 """
 @login_required
@@ -54,7 +67,7 @@ def professor_add_meeting(request):
 	    return render(request,'meetings/professor_add_meeting.html',{'form': form})
 """
 @login_required
-def professor_add_meeting(request):
+def admin_add_meeting(request):
 	    if request.method == 'POST':
 	        form = MeetingsForm(request.POST)
 	        if form.is_valid():
@@ -64,14 +77,14 @@ def professor_add_meeting(request):
 	        	instance.save()
 	        	messages.success(request, f'You have Added a new Meeting!')
 	 
-	        	return redirect('professor-dashboard')
+	        	return redirect('admin-dashboard')
 	    else:
 	        form = MeetingsForm()
-	    return render(request,'meetings/professor_add_meeting.html',{'form': form})
+	    return render(request,'meetings/admin_add_meeting.html',{'form': form})
 #Student Part of code..
 
 @login_required
-def student_dashboard(request):
+def user_dashboard(request):
 	current_user = request.user
 
 	data = StudentMeetings.objects.all().filter(new_user = current_user.id)
@@ -91,7 +104,7 @@ def student_dashboard(request):
 	    }
 
 	
-	return render(request,'meetings/student_dashboard.html',context)
+	return render(request,'meetings/user_dashboard.html',context)
 
 def delete_meeting(request, id): 
     # dictionary for initial data with  
@@ -107,7 +120,7 @@ def delete_meeting(request, id):
         obj.delete() 
         # after deleting redirect to  
         # home page 
-        return redirect('professor-dashboard')
+        return redirect('admin-dashboard')
   
     return render(request, "meetings/delete_meeting.html",context)
 
@@ -125,7 +138,7 @@ def update_meeting(request,id):
     # redirect to detail_view 
     if form.is_valid(): 
         form.save() 
-        return redirect('professor-dashboard')
+        return redirect('admin-dashboard')
   
     # add form dictionary to context 
     context["form"] = form 
@@ -137,8 +150,8 @@ def show_all_meetings(request):
 	if request.method == 'POST':
 		form = MeetingsFieldsForm(request.POST)
 		if form.is_valid():
-			field  = form.cleaned_data['field']
-			request.session['field'] = field
+			area  = form.cleaned_data['area']
+			request.session['area'] = area
 			return HttpResponseRedirect('/meetings_by_field/')
 	else:
 		form = MeetingsFieldsForm()
@@ -146,20 +159,20 @@ def show_all_meetings(request):
 	return render(request,'meetings/show_all_meetings.html',{'form':form})
 
 def meetings_by_field(request):
-	field_value  = request.session['field']
+	area_value  = request.session['area']
 
 	context = {
 
-	  'meetings': Meetings.objects.all().filter(field = field_value),
-	  'field': field_value,
+	  'meetings': Meetings.objects.all().filter(area = area_value),
+	  'area': area_value,
 	}
 	return render(request,'meetings/meetings_by_field.html',context)
 
-def save_metings_to_student_dashboard(request,id):
+def save_metings_to_user_dashboard(request,id):
 	current_user = request.user
 
 	if StudentMeetings.objects.filter(meetings = Meetings.objects.get(id= id ),new_user = NewUser.objects.get(id= current_user.id )).exists():
-		return redirect('student-dashboard')
+		return redirect('user-dashboard')
 		
 
 
@@ -170,13 +183,13 @@ def save_metings_to_student_dashboard(request,id):
 	            new_user = NewUser.objects.get(id= current_user.id ))
 
 
-	return HttpResponseRedirect('/student_dashboard/')
+	return HttpResponseRedirect('/user_dashboard/')
 
-def delete_student_meeting(request, id): 
+def delete_user_meeting(request, id): 
 	current_user = request.user
 	context ={} 
 	obj = get_object_or_404(StudentMeetings, meetings = id , new_user = current_user.id ) 
 	if request.method =="POST":
 		obj.delete() 
-		return redirect('student-dashboard')
-	return render(request, "meetings/delete_student_meeting.html",context)
+		return redirect('user-dashboard')
+	return render(request, "meetings/delete_user_meeting.html",context)

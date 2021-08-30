@@ -36,14 +36,18 @@ class CustomAccountManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     MY_CHOICES = (
-        ('Professor', 'Professor'),
-        ('Student', 'Student'),
+        ('Admin', 'Admin'),
+        ('User', 'User'),
     
     )
     MY_Field = (
-        ('electronic', 'electronic'),
-        ('computer', 'computer'),
-        ('economic', 'economic'),
+        ('Applications and Real-Time Area', 'Applications and Real-Time Area'),
+        ('General Area', 'General Area'),
+        ('Internet Area', 'Internet Area'),
+        ('Operations and Management Area  ', 'Operations and Management Area '),
+        ('Routing Area ', 'Routing Area '),
+        ('Security Area', 'Security Area'),
+        ('Transport Area', 'Transport Area'),
     
     )
 
@@ -52,8 +56,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     start_date = models.DateTimeField(default=timezone.now)
-    who_is = models.CharField(max_length= 100 ,choices=MY_CHOICES,default = 'Student')
-    field = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
+    who_is = models.CharField(max_length= 100 ,choices=MY_CHOICES,default = 'User')
+    area = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
     country = CountryField()
     about = models.TextField(blank=True)
     zoom_url = models.URLField(max_length = 200 , default = "") 

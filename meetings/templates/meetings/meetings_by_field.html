@@ -12,7 +12,7 @@
    {% for meeting  in meetings %}
 
     <li class="list-group-item">
-       <h6>Field of the meeting is: </h6> <p> {{ meeting.field }}</p>
+       <h6>Area of the meeting is: </h6> <p> {{ meeting.area }}</p>
         <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
@@ -29,9 +29,9 @@
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
 
         {% if user.is_authenticated %}
-        {% ifnotequal request.user.who_is "Professor" %}
+        {% ifnotequal request.user.who_is "Admin" %}
 
-        <a href="{% url 'save-meeting-to-student-dashoard' meeting.id %}"class="btn btn-primary  active" role="button" aria-pressed="true">Add Meeting to your Dashboard</a>
+        <a href="{% url 'save-meeting-to-user-dashoard' meeting.id %}"class="btn btn-primary  active" role="button" aria-pressed="true">Add Meeting to your Dashboard</a>
 
         {% endifnotequal %}
         {% endif %}
