@@ -1,7 +1,7 @@
 from django import forms 
 from users.models import NewUser
 from django.forms import ModelForm
-from .models import Meetings
+from .models import Meetings, MeetingsRequest
 from django.utils.safestring import mark_safe
 
 
@@ -39,9 +39,7 @@ class MeetingsForm(ModelForm):
 
 
             }
-        labels = {
-            "time": "Enter time and consider that AM = Before noon and PM =  After noon"
-        }
+      
 
 
 
@@ -57,20 +55,18 @@ class MeetingsFieldsForm(forms.Form):
     )
     area = forms.ChoiceField(choices = OPTIONS)
 
-class RequestMeetingForm(forms.Form):
-    OPTIONS = (
-        ('Applications and Real-Time Area', 'Applications and Real-Time Area'),
-        ('General Area', 'General Area'),
-        ('Internet Area', 'Internet Area'),
-        ('Operations and Management Area  ', 'Operations and Management Area '),
-        ('Routing Area ', 'Routing Area '),
-        ('Security Area', 'Security Area'),
-        ('Transport Area', 'Transport Area'),
-    )
-    area = forms.ChoiceField(choices = OPTIONS)
-    topic = forms.CharField(max_length=250)
-    title = forms.CharField(max_length=250)
-    zoom_url = forms.URLField(max_length=200)
-    time =  forms.TimeField()
-    date = forms.DateField()
-   
+
+
+class RequestMeetingForm(ModelForm):
+    #email = forms.EmailField()
+    class Meta:
+        model = MeetingsRequest
+        fields = ['area','topic','title','zoom_url','about_meeting','date','time']
+        widgets = {
+            'date': DateInput(),
+            'time':TimeInput(),
+
+
+            }
+      
+

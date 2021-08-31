@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import MeetingsForm, MeetingsFieldsForm, RequestMeetingForm
 from users.models import NewUser
-from .models import Meetings, StudentMeetings
+from .models import Meetings, StudentMeetings, MeetingsRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -17,19 +17,28 @@ def about(request):
 	return render(request,'meetings/about.html')
 
 def request_meeting(request):
+	    if request.method == 'POST':
+	        form = RequestMeetingForm(request.POST)
+	        if form.is_valid():
+	        	current_user = request.user
+	        	instance =  form.save(commit=False)
+	        	instance.user = request.user
+	        	instance.save()
+	        	
+	        	#messages.success(request, f'You have Added a new Meeting!')
+	 
+	        	return redirect('user-dashboard')
+	    else:
+	        form = RequestMeetingForm()
+	    return render(request, 'meetings/request_meeting.html',{'form':form})
+def show_meetings_request(request):
+	context = {
+	        'meetings_request': MeetingsRequest.objects.all()
+	        
+	    }
 
-	if request.method == 'POST':
-		form = RequestMeetingForm(request.POST)
-		if form.is_valid():
-			#field  = form.cleaned_data['area']
-			#request.session['area'] = area
-			return HttpResponseRedirect('/about/')
-	else:
-		form = RequestMeetingForm()
 
-
-	return render(request, 'meetings/request_meeting.html',{'form':form})
-
+	return render(request,'meetings/show_meetings_request.html',context)
 #Prof part of the code
 """
 @login_required
@@ -201,3 +210,50 @@ def delete_user_meeting(request, id):
 		obj.delete() 
 		return redirect('user-dashboard')
 	return render(request, "meetings/delete_user_meeting.html",context)
+
+
+def delete_requested_meeting(request,id):
+	context ={} 
+	obj = get_object_or_404(MeetingsRequest, id = id  ) 
+	if request.method =="POST":
+		obj.delete() 
+		return redirect('admin-dashboard')
+	return render(request, "meetings/delete_requested_meeting.html",context)
+
+
+def accept_requested_meeting(request,id):
+
+	obj = get_object_or_404(MeetingsRequest, id = id  ) 
+	meeting = Meetings.objects.create()
+	meeting.area  = obj.area
+	meeting.topic = obj.topic
+	meeting.title = obj.title
+	meeting.about_meeting  = obj.about_meeting
+	meeting.zoom_url = obj.zoom_url
+	meeting.time  = obj.time
+	meeting.date  = obj.date
+	meeting.user  = obj.user
+	meeting.save()
+	obj.delete()
+	return redirect('show-meetings-request')
+	"""
+	if request.method =="POST":
+		meeting.save()
+		return redirect('show-meetings-request')
+	return render(request, "meetings/accept_requested_meeting.html")
+	"""
+def admin_area_meetings(request):
+	current_user = request.user
+
+	area_value  = current_user.area
+
+	context = {
+
+	  'meetings': Meetings.objects.all().filter(area = area_value),
+	  'area': area_value,
+	}
+
+
+	return render(request,"meetings/admin_area_meetings.html",context)
+
+
