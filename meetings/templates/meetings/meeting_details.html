@@ -11,18 +11,8 @@
 
     <li class="list-group-item">
 
-     <form>
-    <div>
-      <input type="text" class="form-control"  value="{{ meeting.zoom_url }}"id="yourtext">
-    </div>
-</form>
-</br>
-</br>
-     
-     <button type="button" class="btn btn-primary btn-lg btn-block" onclick="CopyText()" >Copy Zoom Link</button>
-    </br>
-</br>
-
+   
+ 
 
 
        <h6>Area of the meeting is: </h6> <p> {{ meeting.area }}</p>
@@ -30,9 +20,23 @@
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
 
+        {% comment %}
+        part of the code responsible for copying the zoom link 
+
+        {% endcomment %}
+
+    <h6>Zoom url of the meeting is:</h6>  
+</br>
+
+     <form>
+    <div>
+      <input type="text" class="form-control"  value="{{ meeting.zoom_url }}"id="yourtext">
+    </div>
+    </form>
+</br>
+
        
 
-        <h6>Zoom url is:  </h6><p>{{ meeting.zoom_url }}</p>
 
         <h6>Information About the meetings: </h6><p>{{ meeting.about_meeting }}</p>
 
@@ -42,6 +46,10 @@
 
 
         <a href="{{ meeting.zoom_url }}" class="btn btn-primary  active" role="button" aria-pressed="true">Open The meeting Link</a>
+
+
+     <button type="button" class="btn btn-primary" onclick="CopyText()" >Copy Zoom Link</button>
+ 
 
         {% if user.is_authenticated %}
         {% ifnotequal request.user.who_is "Admin" %}

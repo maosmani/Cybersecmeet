@@ -16,6 +16,7 @@ def about(request):
 
 	return render(request,'meetings/about.html')
 
+@login_required
 def request_meeting(request):
 	    if request.method == 'POST':
 	        form = RequestMeetingForm(request.POST)
@@ -31,6 +32,8 @@ def request_meeting(request):
 	    else:
 	        form = RequestMeetingForm()
 	    return render(request, 'meetings/request_meeting.html',{'form':form})
+
+@login_required
 def show_meetings_request(request):
 	context = {
 	        'meetings_request': MeetingsRequest.objects.all()
@@ -114,7 +117,7 @@ def user_dashboard(request):
 
 	
 	return render(request,'meetings/user_dashboard.html',context)
-
+@login_required
 def delete_meeting(request, id): 
     # dictionary for initial data with  
     # field names as keys 
@@ -132,7 +135,7 @@ def delete_meeting(request, id):
         return redirect('admin-dashboard')
   
     return render(request, "meetings/delete_meeting.html",context)
-
+@login_required
 def update_meeting(request,id):
 
     context ={} 
@@ -184,7 +187,7 @@ def meeting_details(request,id):
 
 	}
 	return render(request,'meetings/meeting_details.html',context)
-
+@login_required
 def save_metings_to_user_dashboard(request,id):
 	current_user = request.user
 
@@ -201,7 +204,7 @@ def save_metings_to_user_dashboard(request,id):
 
 
 	return HttpResponseRedirect('/user_dashboard/')
-
+@login_required
 def delete_user_meeting(request, id): 
 	current_user = request.user
 	context ={} 
@@ -211,7 +214,7 @@ def delete_user_meeting(request, id):
 		return redirect('user-dashboard')
 	return render(request, "meetings/delete_user_meeting.html",context)
 
-
+@login_required
 def delete_requested_meeting(request,id):
 	context ={} 
 	obj = get_object_or_404(MeetingsRequest, id = id  ) 
@@ -220,7 +223,7 @@ def delete_requested_meeting(request,id):
 		return redirect('admin-dashboard')
 	return render(request, "meetings/delete_requested_meeting.html",context)
 
-
+@login_required
 def accept_requested_meeting(request,id):
 
 	obj = get_object_or_404(MeetingsRequest, id = id  ) 
@@ -242,6 +245,7 @@ def accept_requested_meeting(request,id):
 		return redirect('show-meetings-request')
 	return render(request, "meetings/accept_requested_meeting.html")
 	"""
+@login_required
 def admin_area_meetings(request):
 	current_user = request.user
 
