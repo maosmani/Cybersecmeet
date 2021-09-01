@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'meetings',
+ 
 ]
 
 MIDDLEWARE = [
@@ -142,5 +143,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "osmani.blogger@gmail.com"
 EMAIL_HOST_PASSWORD = "googleosmani19911991"
+
+
 
 django_heroku.settings(locals())

@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 def home(request):
 
-	return render(request,'meetings/home.html')
+	#return render(request,'meetings/home.html')
+	return redirect('login')
 
 
 
@@ -26,7 +27,7 @@ def request_meeting(request):
 	        	instance.user = request.user
 	        	instance.save()
 	        	
-	        	#messages.success(request, f'You have Added a new Meeting!')
+	        	messages.success(request, f'You have Added a new meeting request!')
 	 
 	        	return redirect('user-dashboard')
 	    else:
