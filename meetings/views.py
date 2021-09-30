@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 def home(request):
 
 	#return render(request,'meetings/home.html')
-	return redirect('login')
+	return redirect('show-all-meetings')
 
 
 
