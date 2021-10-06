@@ -60,7 +60,8 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     area = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
     country = CountryField()
     about = models.TextField(blank=True)
-    zoom_url = models.URLField(max_length = 200 , default = "") 
+    zoom_url = models.URLField(max_length = 200 , default = "")
+    admin_key = models.CharField(max_length=150, blank=True)
 
 
     is_staff = models.BooleanField(default=False)

@@ -1,4 +1,4 @@
-{% extends "meetings/base.html" %}
+{% extends "meetings/user_base_dashboard.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
      <div class="content-section">
@@ -15,7 +15,6 @@
  
 
 
-       <h6>Area of the meeting is: </h6> <p> {{ meeting.area }}</p>
         <h6>Topic of the meeting is:</h6><p>{{ meeting.topic }}</p>
 
         <h6>Title of the meeting is:</h6>  <p> {{ meeting.title }}</p>
@@ -51,15 +50,6 @@
      <button type="button" class="btn btn-primary" onclick="CopyText()" >Copy Zoom Link</button>
  
 
-        {% if user.is_authenticated %}
-        {% ifnotequal request.user.who_is "Admin" %}
-
-        <a href="{% url 'save-meeting-to-user-dashoard' meeting.id %}"class="btn btn-primary  active" role="button" aria-pressed="true">Add Meeting to your Dashboard</a>
-
-        {% endifnotequal %}
-        {% endif %}
-
-     
 
 
 

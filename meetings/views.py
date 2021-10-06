@@ -5,11 +5,20 @@ from users.models import NewUser
 from .models import Meetings, StudentMeetings, MeetingsRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
+from rest_framework import viewsets
+from .serializers import MeetingSerializer, UsersSerializer
+
+class MeetingView(viewsets.ModelViewSet):
+	queryset = Meetings.objects.all()
+	serializer_class = MeetingSerializer
+class UsersView(viewsets.ModelViewSet):
+	queryset = NewUser.objects.all()
+	serializer_class = UsersSerializer
 
 def home(request):
 
-	#return render(request,'meetings/home.html')
-	return redirect('show-all-meetings')
+	return render(request,'meetings/home.html')
+	#return redirect('show-all-meetings')
 
 
 
@@ -100,6 +109,8 @@ def admin_add_meeting(request):
 def user_dashboard(request):
 	current_user = request.user
 
+	print(current_user.admin_key)
+
 	data = StudentMeetings.objects.all().filter(new_user = current_user.id)
 
 	list_of_meetings_index = []
@@ -112,7 +123,8 @@ def user_dashboard(request):
 	        #'meetings': Meetings.objects.all()
 	        #get all record where the curent user
 	        #'StudentMeetings': StudentMeetings.objects.all().filter(new_user = current_user.id)
-	        'meetings' : Meetings.objects.filter( id__in = list_of_meetings_index)
+	        #'meetings' : Meetings.objects.filter( id__in = list_of_meetings_index)
+	        'meetings' : Meetings.objects.filter(user = current_user.admin_key)
 	        
 	    }
 

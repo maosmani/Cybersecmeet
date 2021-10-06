@@ -32,7 +32,7 @@ class MeetingsForm(ModelForm):
     #email = forms.EmailField()
     class Meta:
         model = Meetings
-        fields = ['area','topic','title','zoom_url','about_meeting','date','time']
+        fields = ['topic','title','zoom_url','about_meeting','date','time']
         widgets = {
             'date': DateInput(),
             'time':TimeInput(),

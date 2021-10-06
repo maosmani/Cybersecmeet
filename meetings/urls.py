@@ -1,15 +1,19 @@
 
-
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('admin_keys', views.UsersView)
 
 
 
 urlpatterns = [
 
-    path('home/',views.home,name='home-page'),
-    path('',views.show_all_meetings, name="show-all-meetings"),
+    path('',views.home,name='home-page'),
+    path('chooseadmins/',include(router.urls)),
+    path('home/',views.show_all_meetings, name="show-all-meetings"),
     path('about/',views.about,name='about-page'),
     path('request_meeting', views.request_meeting, name="request-meeting" ),
     path('show_meetings_request', views.show_meetings_request, name="show-meetings-request" ),

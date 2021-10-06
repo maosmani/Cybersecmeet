@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'meetings',
+    'rest_framework',
  
 ]
 

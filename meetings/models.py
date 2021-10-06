@@ -57,3 +57,8 @@ class MeetingsRequest(models.Model):
     date = models.DateField(null=True)
     user = models.ForeignKey(NewUser,on_delete=models.CASCADE, default = 1)
 
+class Car(models.Model):
+    name = models.CharField(max_length= 150 )
+    top_speed = models.IntegerField()
+
+

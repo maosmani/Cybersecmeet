@@ -13,7 +13,7 @@
     {% endfor %}
   {% endif %}
 </br>
-   <h3>Your meetings</h3>
+   <h3>Your Meetings:</h3>
    <div class="border-top pt-3"> </div>
 
     <div class="card">
@@ -55,7 +55,11 @@
 
         {% endcomment %}
 
+        {% comment %}
+
           <a class="btn btn-primary" href="https://dzmeetings.herokuapp.com/delete_student_meeting/{{meeting.id }}" role="button">Delete Meeting</a>
+
+          {% endcomment %}
 
 
 
@@ -63,7 +67,7 @@
 </li>
     <div>
     {% else %}
-        <p>Sorry, There is no meeting in this area yet.</p>
+        <p>Sorry, There is no meeting  yet.</p>
         {% endif %}
     </div>
 
