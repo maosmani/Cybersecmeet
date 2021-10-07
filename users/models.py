@@ -40,16 +40,6 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
         ('User', 'User'),
     
     )
-    MY_Field = (
-        ('Applications and Real-Time Area', 'Applications and Real-Time Area'),
-        ('General Area', 'General Area'),
-        ('Internet Area', 'Internet Area'),
-        ('Operations and Management Area  ', 'Operations and Management Area '),
-        ('Routing Area ', 'Routing Area '),
-        ('Security Area', 'Security Area'),
-        ('Transport Area', 'Transport Area'),
-    
-    )
 
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
@@ -57,11 +47,10 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=150, blank=True)
     start_date = models.DateTimeField(default=timezone.now)
     who_is = models.CharField(max_length= 100 ,choices=MY_CHOICES,default = 'User')
-    area = models.CharField(max_length=100, choices=MY_Field,default = 'electronic')
     country = CountryField()
     about = models.TextField(blank=True)
     zoom_url = models.URLField(max_length = 200 , default = "")
-    admin_key = models.CharField(max_length=150, blank=True)
+    admin_key = models.IntegerField(blank=True)
 
 
     is_staff = models.BooleanField(default=False)
