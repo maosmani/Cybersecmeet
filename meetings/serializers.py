@@ -12,4 +12,4 @@ class MeetingSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NewUser
-		fields = ('id','who_is','admin_key')
+		fields = ('id','email','user_name','who_is','admin_key')
