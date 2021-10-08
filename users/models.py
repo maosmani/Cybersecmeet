@@ -35,18 +35,13 @@ class CustomAccountManager(BaseUserManager):
 
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    MY_CHOICES = (
-        ('Admin', 'Admin'),
-        ('User', 'User'),
-    
-    )
-
+   
     email = models.EmailField(_('email address'), unique=True)
     user_name = models.CharField(max_length=150, unique=True)
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     start_date = models.DateTimeField(default=timezone.now)
-    who_is = models.CharField(max_length= 100 ,choices=MY_CHOICES,default = 'User')
+    who_is = models.CharField(max_length= 100 ,default = 'User')
     country = CountryField()
     about = models.TextField(blank=True)
     zoom_url = models.URLField(max_length = 200 , default = "")

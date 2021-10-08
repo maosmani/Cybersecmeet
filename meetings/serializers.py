@@ -13,3 +13,4 @@ class UsersSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = NewUser
 		fields = ('id','who_is','admin_key')
+		#'email','user_name',
