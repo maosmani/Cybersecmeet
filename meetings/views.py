@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import MeetingsForm, MeetingsFieldsForm, RequestMeetingForm
+from .forms import MeetingsForm
 from users.models import NewUser
-from .models import Meetings, StudentMeetings, MeetingsRequest
+from .models import Meetings, StudentMeetings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from rest_framework import viewsets
@@ -26,41 +26,7 @@ def about(request):
 
 	return render(request,'meetings/about.html')
 
-@login_required
-def request_meeting(request):
-	    if request.method == 'POST':
-	        form = RequestMeetingForm(request.POST)
-	        if form.is_valid():
-	        	current_user = request.user
-	        	instance =  form.save(commit=False)
-	        	instance.user = request.user
-	        	instance.save()
-	        	
-	        	messages.success(request, f'You have Added a new meeting request!')
-	 
-	        	return redirect('user-dashboard')
-	    else:
-	        form = RequestMeetingForm()
-	    return render(request, 'meetings/request_meeting.html',{'form':form})
 
-@login_required
-def show_meetings_request(request):
-	context = {
-	        'meetings_request': MeetingsRequest.objects.all()
-	        
-	    }
-
-
-	return render(request,'meetings/show_meetings_request.html',context)
-#Prof part of the code
-"""
-@login_required
-def professor_dashboard(request):
-	
-
-	    return render(request,'meetings/professor_dashboard.html')
-
-"""
 @login_required
 def admin_dashboard(request):
 	context = {
@@ -183,15 +149,6 @@ def show_all_meetings(request):
 
 	return render(request,'meetings/show_all_meetings.html',{'form':form})
 
-def meetings_by_field(request):
-	area_value  = request.session['area']
-
-	context = {
-
-	  'meetings': Meetings.objects.all().filter(area = area_value),
-	  'area': area_value,
-	}
-	return render(request,'meetings/meetings_by_field.html',context)
 
 def meeting_details(request,id):
 	context = {
@@ -227,37 +184,7 @@ def delete_user_meeting(request, id):
 		return redirect('user-dashboard')
 	return render(request, "meetings/delete_user_meeting.html",context)
 
-@login_required
-def delete_requested_meeting(request,id):
-	context ={} 
-	obj = get_object_or_404(MeetingsRequest, id = id  ) 
-	if request.method =="POST":
-		obj.delete() 
-		return redirect('admin-dashboard')
-	return render(request, "meetings/delete_requested_meeting.html",context)
 
-@login_required
-def accept_requested_meeting(request,id):
-
-	obj = get_object_or_404(MeetingsRequest, id = id  ) 
-	meeting = Meetings.objects.create()
-	meeting.area  = obj.area
-	meeting.topic = obj.topic
-	meeting.title = obj.title
-	meeting.about_meeting  = obj.about_meeting
-	meeting.zoom_url = obj.zoom_url
-	meeting.time  = obj.time
-	meeting.date  = obj.date
-	meeting.user  = obj.user
-	meeting.save()
-	obj.delete()
-	return redirect('show-meetings-request')
-	"""
-	if request.method =="POST":
-		meeting.save()
-		return redirect('show-meetings-request')
-	return render(request, "meetings/accept_requested_meeting.html")
-	"""
 @login_required
 def admin_area_meetings(request):
 	current_user = request.user

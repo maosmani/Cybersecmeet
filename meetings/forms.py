@@ -1,7 +1,7 @@
 from django import forms 
 from users.models import NewUser
 from django.forms import ModelForm
-from .models import Meetings, MeetingsRequest
+from .models import Meetings
 from django.utils.safestring import mark_safe
 
 
@@ -32,7 +32,7 @@ class MeetingsForm(ModelForm):
     #email = forms.EmailField()
     class Meta:
         model = Meetings
-        fields = ['topic','title','zoom_url','about_meeting','date','time']
+        fields = ['topic','title','zoom_url','zoom_password','about_meeting','date','time']
         widgets = {
             'date': DateInput(),
             'time':TimeInput(),
@@ -41,32 +41,4 @@ class MeetingsForm(ModelForm):
             }
       
 
-
-
-class MeetingsFieldsForm(forms.Form):
-    OPTIONS = (
-        ('Applications and Real-Time Area', 'Applications and Real-Time Area'),
-        ('General Area', 'General Area'),
-        ('Internet Area', 'Internet Area'),
-        ('Operations and Management Area  ', 'Operations and Management Area '),
-        ('Routing Area ', 'Routing Area '),
-        ('Security Area', 'Security Area'),
-        ('Transport Area', 'Transport Area'),
-    )
-    area = forms.ChoiceField(choices = OPTIONS)
-
-
-
-class RequestMeetingForm(ModelForm):
-    #email = forms.EmailField()
-    class Meta:
-        model = MeetingsRequest
-        fields = ['area','topic','title','zoom_url','about_meeting','date','time']
-        widgets = {
-            'date': DateInput(),
-            'time':TimeInput(),
-
-
-            }
-      
 
